@@ -7,13 +7,12 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <a href="{{ route('front.post.category', $post->category) }}" class="text-uppercase font-weight-bolder text-dark">{{ $post->category }}</a>
             <h1>{{ $post->title }}</h1>
             <span>{{ $post->publish_date }}</span>
             @if(Auth::check()) <a href="{{ route('admin.post.edit', $post) }}">Edit</a> @endif
             <h5 class="mt-3 mb-1">Share this post</h5>
             <div class="addthis_inline_share_toolbox mb-5 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
-            <div class="body-post">{!! $post->body !!}</div>
+            <div class="body-post">{!! $post->content !!}</div>
             <div class="addthis_inline_share_toolbox mb-5 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
         </div>
         <div class="col-12 col-md-6">

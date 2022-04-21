@@ -20,7 +20,6 @@
 		@else
 		<meta name="robots" content="index, follow" />
 		@endif
-		<script src="{{ asset('js/app.js') }}" defer></script>
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -35,7 +34,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto text-uppercase font-weight-bolder">
+					<ul class="navbar-nav ms-auto text-uppercase font-weight-bolder">
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('front.about') }}">About</a>
 						</li>
@@ -46,19 +45,16 @@
 							<a class="nav-link" href="{{ route('front.post.archive-page') }}">Archive</a>
 						</li>
 						@if(Auth::check())	
-						<li class="nav-item">
-							<a class="nav-link {{ Request::is('collection*') ? 'active' : '' }}" href="{{ route('front.collection') }}">Collections</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white btn btn-sm btn-secondary {{ Request::is('post*') ? 'active' : '' }}" href="{{ route('admin.post.create') }}">New Post</a>
-						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								{{ Auth::user()->name }} <span class="caret"></span>
+							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+								{{ Auth::user()->name }}
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="{{ route('admin.post.create') }}">New Post</a>
+								<a class="dropdown-item" href="{{ route('admin.photo.create') }}">New Photo</a>
+								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ route('admin.post.index') }}">Post</a>
-								<a class="dropdown-item" href="{{ route('admin.product') }}">Product</a>
+								<a class="dropdown-item" href="{{ route('admin.photo.index') }}">Photo</a>
 								<a class="dropdown-item" href="{{ route('admin.tag') }}">Tag</a>
 								<a class="dropdown-item" href="{{ route('admin.subscription') }}">Subscription</a>
 								<div class="dropdown-divider"></div>
@@ -88,25 +84,6 @@
 			</div>
 		</nav>
 		<div class="content-wrapper">
-			@if(Request::is('ura*') && Auth::check())
-			<div class="container-fluid mb-3">
-				<div class="row">
-					<div class="col-12">
-						<ul class="nav nav-tabs">
-							<li class="nav-item">
-								<a class="nav-link {{ Request::is('ura/post*') ? 'active' : '' }}" href="{{ route('admin.post.index') }}">Post</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link {{ Request::is('ura/product*') ? 'active' : '' }}" href="{{ route('admin.product') }}">Product</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link {{ Request::is('ura/collection*') ? 'active' : '' }}" href="{{ route('admin.collection') }}">Collection</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			@endif
 			@yield('content')
 		</div>
 		<!-- footer -->
@@ -158,7 +135,7 @@
 		</footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		<script src="/assets/js/bootstrap.min.js" crossorigin="anonymous"></script>
+		<script src="{{ asset('js/app.js') }}" defer></script>
 		<script type="text/javascript">
 			var current_scroll = 0;
 			$(function() {
