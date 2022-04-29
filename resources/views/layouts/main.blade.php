@@ -23,17 +23,17 @@
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('css/main.css') }}" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/main.min.css?d=2204300222') }}" crossorigin="anonymous">
 
 	</head>
 	<body>
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top">
 			<div class="container-fluid">
 				<a class="navbar-brand font-weight-bolder" href="/">emmards</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 					<ul class="navbar-nav ms-auto text-uppercase font-weight-bolder">
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('front.about') }}">About</a>

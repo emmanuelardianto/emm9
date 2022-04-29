@@ -113,7 +113,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.post.update', compact('post'));
+        $photos = Photo::orderBy('updated_at', 'desc')->get();
+        return view('admin.post.update', compact('post', 'photos'));
     }
 
     /**

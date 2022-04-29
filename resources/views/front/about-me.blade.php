@@ -4,7 +4,7 @@
     <div class="row py-3">
         <div class="col-lg-4 col-md-4 col-12">
             <div class="">
-            <img src="https://emgallery.s3-ap-northeast-1.amazonaws.com/blog/upload/main/contact.jpg" title="this is me" alt="this is me" style="width: 100%" />
+            <img src="https://emgallery.s3.ap-northeast-1.amazonaws.com/blog/upload/thumbnail/1650505715-thumbnail-1650505715.jpg" title="this is me" alt="this is me" style="width: 100%" />
             </div>
         </div>
         <div class="col-lg-8 col-md-8 col-12">

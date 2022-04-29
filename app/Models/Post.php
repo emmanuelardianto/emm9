@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 use App\Models\Photo;
+use Auth;
 
 class Post extends Model
 {
@@ -20,6 +21,10 @@ class Post extends Model
         'tag',
         'status',
         'images'
+    ];
+
+    protected $casts = [
+        'images' => 'array'
     ];
 
     public function getRouteKeyName() {
@@ -48,7 +53,7 @@ class Post extends Model
     }
 
     public function getRelatedPostsAttribute() {
-        return Post::where('status', 1)->where('id', '!=' , $this->id)->get()->take(3);
+        return Post::where('status', 1)->where('status', 1)->where('id', '!=' , $this->id)->get()->take(3);
     }
 
     public function getBodyOverviewAttribute() {
@@ -71,20 +76,24 @@ class Post extends Model
     }
 
     public function nextPost() {
-        return self::where('created_at', '>', $this->created_at)->take(1)->first(['title', 'slug']);
+        return self::where('created_at', '>', $this->created_at)->where('status', 1)->first();
     }
 
     public function previousPost() {
-        return self::where('created_at', '<', $this->created_at)->take(1)->first(['title', 'slug']);
+        return self::where('created_at', '<', $this->created_at)->where('status', 1)->first();
     }
 
     public function getPhotosAttribute() {
-        return Photo::whereIn('id', collect(json_decode($this->images))->map(function($obj) {
+        return Photo::whereIn('id', collect($this->images)->map(function($obj) {
             return (Int)$obj;
         })->toArray())->get();
     }
     
     public function getFirstPhotoAttribute() {
         return $this->photos[0];
+    }
+
+    public function getTitleAttribute($value) {
+        return $value.(Auth::check() && !$this->status ? ' - unpublish' : '');
     }
 }

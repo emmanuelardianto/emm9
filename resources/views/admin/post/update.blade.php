@@ -37,7 +37,7 @@
                                 <div class="col-lg-3 mb-3">
                                     <img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%">
                                     {{ $photo->tags }}
-                                    <input class="form-check-input" type="checkbox" name="images[]" value="{{ $photo->id }}" />
+                                    <input class="form-check-input" type="checkbox" name="images[]" value="{{ $photo->id }}" {{ isset($post) && in_array($photo->id.'', $post->images) ? 'checked' : '' }} />
                                 </div>
                                 @endforeach
                             </div>

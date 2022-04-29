@@ -54,6 +54,5 @@
 @endsection
 
 @section('script')
-<script src="https://cdn.tiny.cloud/1/5c7f4h2e4xyigs7jqeb41nz2ku0empfoyw9r4o9gqbjf83tf/tinymce/5/tinymce.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 @stop

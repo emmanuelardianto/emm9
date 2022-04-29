@@ -145,6 +145,8 @@ p {
     width: 100%; 
     text-align: center;
     display: none;
+    font-size: 1.2em;
+    text-transform: uppercase;
 }
 
 .grid-item:hover .overlay,

@@ -11,15 +11,16 @@
             <span>{{ $post->publish_date }}</span>
             @if(Auth::check()) <a href="{{ route('admin.post.edit', $post) }}">Edit</a> @endif
             <h5 class="mt-3 mb-1">Share this post</h5>
-            <div class="addthis_inline_share_toolbox mb-5 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
+            <div class="addthis_inline_share_toolbox mb-3 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
             <div class="body-post">{!! $post->content !!}</div>
-            <div class="addthis_inline_share_toolbox mb-5 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
             <div class="grid">
-        <div class="grid-sizer"></div>
-            @foreach($post->photos as $photo)
-            <div class="grid-item"><img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%"></div>
-            @endforeach
+                <div class="grid-sizer"></div>
+                @foreach($post->photos as $photo)
+                <div class="grid-item"><img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%"></div>
+                @endforeach
             </div>
+            <h5 class="mt-3 mb-1">Share this post</h5>
+            <div class="addthis_inline_share_toolbox mb-3 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
         </div>
         <div class="col-12 col-md-6">
             @if(!is_null($post->previousPost()))

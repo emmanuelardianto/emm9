@@ -5,11 +5,18 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Auth;
 
 class PostController extends Controller
 {
     public function index(Request $request) {
-        $posts = Post::orderBy('created_at', 'desc')->where('status', 1)->paginate(24);
+        $posts = Post::orderBy('created_at', 'desc');
+
+        if(!Auth::check()) {
+            $posts = $posts->where('status', 1);
+        }
+
+        $posts = $posts->paginate(24);
 
         $data = collect();
 
@@ -27,7 +34,7 @@ class PostController extends Controller
     }
 
     public function show(Post $post) {
-        if($post->status != 1)
+        if(!Auth::check() && $post->status != 1)
             return abort('404');
         
         $data = collect();
