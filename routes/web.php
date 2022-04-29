@@ -17,9 +17,7 @@ Route::group([
     'as' => 'front.',
     'middleware' => ['web']
 ], function ($route) {
-    $route->name('home')->get('/', function() {
-        return view('layouts.main');
-    });
+    $route->name('home')->get('/', 'HomeController@index');
     $route->name('about')->get('/about-me', function() {
         return view('front.about-me');
     });
@@ -45,7 +43,7 @@ Route::group([
     'namespace' => 'Admin',
     'prefix' => 'ura',
     'as' => 'admin.',
-    'middleware' => ['web']
+    'middleware' => ['web', 'auth']
 ], function ($route) {
     $route->name('post.index')->get('/post', 'PostController@index');
     $route->name('post.create')->get('/post/create', 'PostController@create');
@@ -82,6 +80,17 @@ Route::group([
 
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/ura/login', [
+    'as' => 'login',
+    'uses' => 'Auth\LoginController@showLoginForm'
+]);
+Route::post('/ura/login', [
+'as' => '',
+'uses' => 'Auth\LoginController@login'
+]);
+Route::post('/ura/logout', [
+'as' => 'logout',
+'uses' => 'Auth\LoginController@logout'
+]);

@@ -28,7 +28,7 @@
 	</head>
 	<body>
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top">
-			<div class="container">
+			<div class="container-fluid">
 				<a class="navbar-brand font-weight-bolder" href="/">emmards</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -38,13 +38,13 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('front.about') }}">About</a>
 						</li>
+						@if(Auth::check())	
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('front.post') }}">Blog</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('front.post.archive-page') }}">Archive</a>
 						</li>
-						@if(Auth::check())	
 						<li class="nav-item dropdown">
 							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 								{{ Auth::user()->name }}
@@ -170,15 +170,16 @@
 		<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 		<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 		<script type="text/javascript">
-			$(function() {
-				var $grid = $('.grid').imagesLoaded( function() {
-					$grid.masonry({
-						itemSelector: '.grid-item',
-						gutter: 0,
-						columnWidth: '.grid-sizer'
-					});
-				});
+			// init Masonry
+			var $grid = $('.grid').masonry({
+				itemSelector: '.grid-item',
+				percentPosition: true,
+				columnWidth: '.grid-sizer'
 			});
+			// layout Masonry after each image loads
+			$grid.imagesLoaded().progress( function() {
+				$grid.masonry();
+			});  
 		</script>
 		@yield('script')
 	</body>

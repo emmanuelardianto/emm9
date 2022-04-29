@@ -7,6 +7,9 @@
             <h1>{{ $post->title }}</h1>
             <a href="{{ route('admin.post.edit', $post) }}">Edit</a>
             <div class="body-post">{!! $post->body !!}</div>
+            @foreach($post->photos as $photo)
+            <div><img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%"></div>
+            @endforeach
         </div>
     </div>
 </div>

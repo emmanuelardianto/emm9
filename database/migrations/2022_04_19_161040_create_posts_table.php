@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('slug', 200)->nullable();
             $table->string('title', 250);
-            $table->text('content');
+            $table->enum('type', ['post', 'gallery'])->default('post');
+            $table->text('content')->nullable();
+            $table->json('images')->nullable();
             $table->json('tags')->nullable();
             $table->boolean('status')->default(0);
             $table->integer('view_count')->default(0);

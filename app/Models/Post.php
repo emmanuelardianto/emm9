@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
+use App\Models\Photo;
 
 class Post extends Model
 {
@@ -17,7 +18,8 @@ class Post extends Model
         'thumbnail',
         'content',
         'tag',
-        'status'
+        'status',
+        'images'
     ];
 
     public function getRouteKeyName() {
@@ -74,5 +76,15 @@ class Post extends Model
 
     public function previousPost() {
         return self::where('created_at', '<', $this->created_at)->take(1)->first(['title', 'slug']);
+    }
+
+    public function getPhotosAttribute() {
+        return Photo::whereIn('id', collect(json_decode($this->images))->map(function($obj) {
+            return (Int)$obj;
+        })->toArray())->get();
+    }
+    
+    public function getFirstPhotoAttribute() {
+        return $this->photos[0];
     }
 }

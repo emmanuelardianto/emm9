@@ -12,7 +12,7 @@
             @include('include.alert')
             <div class="row">
                 @foreach ($photos as $item)
-                <div class="col-lg-3">
+                <div class="col-lg-3 mb-3">
                     <img src="{{ $item->image }}" alt="{{ $item->tags }}" width="100%">
                     {{ $item->tags }}
                 </div>

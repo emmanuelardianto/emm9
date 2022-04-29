@@ -29,26 +29,21 @@
                     </div>
                 </div>
                 <div class="form-group row mb-3">
-                    <label for="title" class="col-sm-3 col-form-label border-right">Keywords</label>
+                    <label for="title" class="col-sm-3 col-form-label border-right">Photos</label>
                     <div class="col-sm-9">
-                        <input id="keywords" type="text" class="form-control" name="keywords" value="{{ isset($post) ? $post->keywords : old('keywords') }}" required>
-                    </div>
-                </div>
-                {{--
-                <div class="form-group row mb-3">
-                    <label class="col-sm-3 col-form-label border-right">Banner</label>
-                    <div class="col-sm-9">
-                        <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="banner" name="banner" onchange="document.getElementById('imgBanner').src = window.URL.createObjectURL(this.files[0])" />
-                            <label class="custom-file-label" for="customFile">{{ isset($post) ? $post->banner : 'Choose File' }}</label>
-                        </div>
-                        <img id="imgBanner" src="{{ isset($post) && $post->banner != '' ?  URL($post->banner) : 'https://dummyimage.com/100x100/d1d1d1/dbdbdb.png' }}" alt="image" title="image" width="100px" /><br />
-                        <div class="py-1">
-                            <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('banner').value = '';document.getElementById('imgBanner').src = 'https://dummyimage.com/100x100/d1d1d1/dbdbdb.png';">Remove</button>
+                        <div class="border px-3 py-3">
+                            <div class="row" style="max-height: 750px; overflow-x: auto;">
+                                @foreach($photos as $photo)
+                                <div class="col-lg-3 mb-3">
+                                    <img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%">
+                                    {{ $photo->tags }}
+                                    <input class="form-check-input" type="checkbox" name="images[]" value="{{ $photo->id }}" />
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-                --}}
                 <div class="form-group row mb-3">
                     <label for="status" class="col-sm-3 col-form-label border-right">Status</label>
                     <div class="col-sm-9">

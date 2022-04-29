@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Photo;
 use Carbon\Carbon;
 use Storage;
 use Str;
@@ -34,7 +35,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.update');
+        $photos = Photo::orderBy('updated_at', 'desc')->get();
+        return view('admin.post.update', compact('photos'));
     }
 
     /**
@@ -62,8 +64,8 @@ class PostController extends Controller
             'title' => $request->get('title'),
             'content' => $request->get('content'),
             'status' => $request->get('status'),
-            'keywords' => $request->get('keywords'),
-            'tags' => $tags->unique()->values()
+            'tags' => $tags->unique()->values(),
+            'images' => collect($request->get('images'))
         ]);
         $slug = '';
         if (is_null($post->created_at)) {

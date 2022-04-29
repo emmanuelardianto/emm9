@@ -33,7 +33,7 @@
                     <label for="visible" class="col-sm-3 col-form-label border-right">Visibility</label>
                     <div class="col-sm-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="visible" id="cbx_publish" value="1" {{ isset($photo) && $photo->visible == '1' || old('visible') == '1' ? 'checked' : '' }}>
+                            <input class="form-check-input" type="radio" name="visible" id="cbx_publish" value="1" {{ isset($photo) && $photo->visible == '1' || old('visible') == '1' || !isset($photo) ? 'checked' : '' }}>
                             <label class="form-check-label" for="cbx_publish">Publish</label>
                         </div>
                         <div class="form-check form-check-inline">

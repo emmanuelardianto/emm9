@@ -4,7 +4,7 @@
 @section('meta_description', $post->overview)
 @section('meta_keywords', $post->keywords)
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <h1>{{ $post->title }}</h1>
@@ -14,6 +14,12 @@
             <div class="addthis_inline_share_toolbox mb-5 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
             <div class="body-post">{!! $post->content !!}</div>
             <div class="addthis_inline_share_toolbox mb-5 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
+            <div class="grid">
+        <div class="grid-sizer"></div>
+            @foreach($post->photos as $photo)
+            <div class="grid-item"><img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%"></div>
+            @endforeach
+            </div>
         </div>
         <div class="col-12 col-md-6">
             @if(!is_null($post->previousPost()))

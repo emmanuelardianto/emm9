@@ -127,6 +127,30 @@ p {
     display: block;
     width: 100%;
 }
+.grid-item .overlay {
+    height: 100%; 
+    width: 100%; 
+    top: 0; 
+    left: 0; 
+    background: #000; 
+    position: absolute; 
+    opacity: 0.5;
+    display: none;
+}
+
+.grid-item .title {
+    position: absolute; 
+    top: 50%; 
+    color: #FFF; 
+    width: 100%; 
+    text-align: center;
+    display: none;
+}
+
+.grid-item:hover .overlay,
+.grid-item:hover .title {
+    display: block;
+}
 
 /* 3 columns */
 @media (min-width: 768px) {
@@ -165,7 +189,7 @@ h2.post-sub {
     max-width: 920px;
 }
 .content-wrapper {
-    margin-bottom: 150px;
+    margin-bottom: 120px;
     position: relative;
     z-index: 2;
     background: #ffffff;
