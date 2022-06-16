@@ -17,6 +17,9 @@ class Photo extends Model
     ];
 
     public function getImageAttribute($value) {
+        if(str_contains($this->url, 'flickr'))
+            return $this->url;
+            
         return !empty($this->url) ? Storage::disk('s3')->url($this->url) : '';
     }
 }

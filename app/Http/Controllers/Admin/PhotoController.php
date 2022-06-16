@@ -59,7 +59,7 @@ class PhotoController extends Controller
                     $tags->push(trim($tag));
             }
         $photo->fill([
-            'url' => $this->upload($request->file('url')),
+            'url' => $request->get('url'),
             'visible' => $request->get('visible'),
             'tags' => $tags->unique()->values()
         ]);
@@ -152,13 +152,14 @@ class PhotoController extends Controller
         if (empty($file))
             return '';
         
-        $path= 'blog/upload/';
+        $path= 'images/';
         $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
         $timestamp = Carbon::now()->timestamp;
-        $name = $name.'-'.$timestamp.'.'.$extension;
+        $name = 'emmards-'.$name.'-'.$timestamp.'.'.$extension;
         $imgpath = $path.$name;
-        return Storage::disk('s3')->put($imgpath, $file);
+        Storage::disk('s3')->put($imgpath, file_get_contents($file));
+        return $imgpath;
     }
 
     public function image_upload(Request $request) {

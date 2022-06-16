@@ -31,17 +31,21 @@
                 <div class="form-group row mb-3">
                     <label for="title" class="col-sm-3 col-form-label border-right">Photos</label>
                     <div class="col-sm-9">
-                        <div class="border px-3 py-3">
-                            <div class="row" style="max-height: 750px; overflow-x: auto;">
-                                @foreach($photos as $photo)
-                                <div class="col-lg-3 mb-3">
-                                    <img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%">
-                                    {{ $photo->tags }}
-                                    <input class="form-check-input" type="checkbox" name="images[]" value="{{ $photo->id }}" {{ isset($post) && in_array($photo->id.'', $post->images) ? 'checked' : '' }} />
+                        <div id="imageForm" class="mb-2">
+                            @if(isset($post))
+                                @foreach($post->images as $image)
+                                <div class="input-group my-2">
+                                    <input type="text" class="form-control" name="images[]" placeholder="" value="{{ $image }}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-danger remove" type="button">Remove</button>
+                                    </div>
                                 </div>
                                 @endforeach
-                            </div>
+                            @else
+                                <input type="text" class="form-control" name="images[]" value="">
+                            @endif
                         </div>
+                        <button type="button" class="btn btn-secondary" id="append">Append</button>
                     </div>
                 </div>
                 <div class="form-group row mb-3">
@@ -112,5 +116,23 @@
            xhr.send(formData);
        }
     });
+
+    $('#append').on('click', function(){
+        let formGroup = '<div class="input-group my-2">' +
+            '<input type="text" class="form-control" name="images[]" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">' +
+            '<div class="input-group-append">' +
+                '<button class="btn btn-outline-danger remove" type="button">Remove</button>' +
+            '</div>' +
+        '</div>';
+        $('#imageForm').append(formGroup);
+    });
+
+    $('#imageForm').on('click', 'button.remove', function(){ 
+        $(this).parent().parent().remove();
+    });
+
+    function removeItem(e) {
+
+    }
 </script>
 @stop

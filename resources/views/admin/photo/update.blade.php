@@ -24,6 +24,12 @@
                     </div>
                 </div>
                 <div class="form-group row mb-3">
+                    <label for="title" class="col-sm-3 col-form-label border-right">Url</label>
+                    <div class="col-sm-9">
+                        <input id="url" type="text" class="form-control" name="url" value="{{ isset($photo) ? $photo->url : old('url') }}" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
                     <label for="title" class="col-sm-3 col-form-label border-right">Tags</label>
                     <div class="col-sm-9">
                         <input id="tags" type="text" class="form-control" name="tags" value="{{ isset($photo) ? $photo->joined_tag : old('tags') }}" required>

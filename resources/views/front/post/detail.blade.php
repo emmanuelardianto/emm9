@@ -15,8 +15,8 @@
             <div class="body-post">{!! $post->content !!}</div>
             <div class="grid">
                 <div class="grid-sizer"></div>
-                @foreach($post->photos as $photo)
-                <div class="grid-item"><img src="{{ $photo->image }}" alt="{{ $photo->tags }}" width="100%"></div>
+                @foreach($post->images as $photo)
+                <div class="grid-item"><img src="{{ $photo }}" alt="{{ $post->title }}" width="100%"></div>
                 @endforeach
             </div>
             <h5 class="mt-3 mb-1">Share this post</h5>
