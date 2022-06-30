@@ -6,7 +6,7 @@
         @foreach($posts as $post)
         <a class="grid-item" href="{{ route('front.post.detail', $post) }}">
             <div style="position: relative;">
-                <img src="{{ $post->first_photo->image }}" alt="{{ $post->tags }}" width="100%" class="d-block">
+                <img src="{{ $post->first_photo }}" class="grid-image" alt="{{ $post->tags }}" width="100%" class="d-block">
                 <div class="overlay"></div>
                 <div class="title">{{ $post->title }}</div>
             </div>

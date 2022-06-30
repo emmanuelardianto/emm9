@@ -160,21 +160,33 @@ p {
     .grid-item {
         width: 50%;
     }
+    .grid-sizer.landscape,
+    .grid-item.landscape {
+        width: 100%;
+    }
 }
 
 /* 3 columns */
-@media (min-width: 768px) {
+@media (min-width: 978px) {
     .grid-sizer,
     .grid-item {
         width: 33.33%;
     }
+    .grid-sizer.landscape,
+    .grid-item.landscape {
+        width: 66.66%;
+    }
 }
 
 /* 4 columns */
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
     .grid-sizer,
     .grid-item {
-        width: 25%;
+        width: 20%;
+    }
+    .grid-sizer.landscape,
+    .grid-item.landscape {
+        width: 40%;
     }
 }
 

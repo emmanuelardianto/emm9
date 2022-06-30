@@ -10,7 +10,7 @@ use Auth;
 class HomeController extends Controller
 {
     public function index(Request $request) {
-        $posts = Post::orderBy('created_at', 'desc');
+        $posts = Post::orderBy('updated_at', 'desc');
 
         if(!Auth::check()) {
             $posts = $posts->where('status', 1);

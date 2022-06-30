@@ -76,11 +76,11 @@ class Post extends Model
     }
 
     public function nextPost() {
-        return self::where('created_at', '>', $this->created_at)->where('status', 1)->first();
+        return self::where('updated_at', '>', $this->created_at)->where('status', 1)->first();
     }
 
     public function previousPost() {
-        return self::where('created_at', '<', $this->created_at)->where('status', 1)->first();
+        return self::where('updated_at', '<', $this->created_at)->where('status', 1)->first();
     }
 
     public function getPhotosAttribute() {
@@ -90,7 +90,7 @@ class Post extends Model
     }
     
     public function getFirstPhotoAttribute() {
-        return $this->photos[0];
+        return collect($this->images)->last();
     }
 
     public function getTitleAttribute($value) {

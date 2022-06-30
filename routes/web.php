@@ -24,6 +24,9 @@ Route::group([
     $route->name('contact')->get('/contact', function() {
         return view('front.contact');
     });
+    // $route->name('about.print')->get('/about-me-print', function() {
+    //     return view('front.about-me-print-v2');
+    // });
 
     $route->name('post')->get('/post', 'PostController@index');
     $route->name('post.archive-page')->get('/archive', 'PostController@archivePage');
