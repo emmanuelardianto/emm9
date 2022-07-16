@@ -40,6 +40,8 @@ Route::group([
 
     $route->name('product')->get('/product', 'ProductController@index');
 
+    $route->name('linktree')->get('/tree', 'HomeController@linktree');
+
 });
 
 Route::group([

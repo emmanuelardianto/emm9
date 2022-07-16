@@ -37,7 +37,7 @@
                                 <div class="input-group my-2">
                                     <input type="text" class="form-control" name="images[]" placeholder="" value="{{ $image }}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger remove" type="button">Remove</button>
+                                        <button class="btn btn-outline-danger remove" type="button">Remove {{ $loop->index }}</button>
                                     </div>
                                 </div>
                                 @endforeach

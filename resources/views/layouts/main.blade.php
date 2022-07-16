@@ -23,7 +23,7 @@
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('css/main.min.css?d=22061820257') }}" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/main.min.css?d=2207161537') }}" crossorigin="anonymous">
 
 	</head>
 	<body>
@@ -181,15 +181,6 @@
 				$grid.masonry();
 				getImageDimension();
 			});  
-
-			function getImageDimension() {
-				$('.grid-item').each(function() {
-					let img = $(this).children()[0];
-					if($(img).height() < $(img).width()) {
-						$(this).addClass('landscape');
-					}
-				});
-			}
 		</script>
 		@yield('script')
 	</body>

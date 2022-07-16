@@ -16,7 +16,17 @@
             <div class="grid">
                 <div class="grid-sizer"></div>
                 @foreach(collect($post->images)->reverse() as $photo)
+                @if(Auth::check())
+                <div class="grid-item">
+                    <div style="position: relative;">
+                        <img src="{{ $photo }}" alt="{{ $post->title }}" width="100%">
+                        <div class="overlay"></div>
+                        <div class="title">{{ $loop->index }}</div>
+                    </div>
+                </div>
+                @else
                 <div class="grid-item"><img src="{{ $photo }}" alt="{{ $post->title }}" width="100%"></div>
+                @endif                
                 @endforeach
             </div>
             <h5 class="mt-3 mb-1">Share this post</h5>

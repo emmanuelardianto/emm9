@@ -20,4 +20,23 @@ class HomeController extends Controller
 
         return view('front.index', compact('posts'));
     }
+
+    public function linktree() {
+        $links = [
+            array(
+                'title' => 'Instagram',
+                'link' => 'https://instagram.com/emmards'
+            ),
+            array(
+                'title' => 'Instagram',
+                'link' => 'https://instagram.com/emmards.me'
+            ),
+            array(
+                'title' => 'Youtube',
+                'link' => 'https://www.youtube.com/c/EmmanuelPetit00'
+            ),
+        ];
+
+        return view('front.linktree', compact('links'));
+    }
 }
