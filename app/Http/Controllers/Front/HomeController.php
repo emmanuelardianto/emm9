@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Carbon\Carbon;
 use Auth;
 
 class HomeController extends Controller
@@ -18,7 +19,18 @@ class HomeController extends Controller
 
         $posts = $posts->get()->take(10);
 
-        return view('front.index', compact('posts'));
+        $data = collect(\Flickr::request('flickr.photos.search', ['user_id' => env('FLICKR_USERID'), 'per_page' => 48]))->first();
+        $recents = collect();
+        if(isset($data['photos'])){
+            $recents =  collect($data['photos']['photo'])->map(function($obj) {
+                return array(
+                    'id' => $obj['id'],
+                    'src' => 'https://live.staticflickr.com/'.$obj['server'].'/'.$obj['id'].'_'.$obj['secret'].'_q.jpg'
+                );
+            });
+        }
+
+        return view('front.index', compact('posts', 'recents'));
     }
 
     public function linktree() {
@@ -38,5 +50,29 @@ class HomeController extends Controller
         ];
 
         return view('front.linktree', compact('links'));
+    }
+
+    public function showImageDetail($flickr) {
+        if(!$flickr)
+            return abort('404');
+        
+        $data = collect(\Flickr::request('flickr.photos.getSizes', ['user_id' => env('FLICKR_USERID'), 'photo_id' => $flickr]))->first();
+        if(!isset($data['sizes'])) {
+            return abort('404');
+        }
+
+        $search = collect(\Flickr::request('flickr.photos.search', ['user_id' => env('FLICKR_USERID'), 'per_page' => 48]))->first();
+        $recents = collect();
+        if(isset($search['photos'])){
+            $recents =  collect($search['photos']['photo'])->map(function($obj) {
+                return array(
+                    'id' => $obj['id'],
+                    'src' => 'https://live.staticflickr.com/'.$obj['server'].'/'.$obj['id'].'_'.$obj['secret'].'_q.jpg'
+                );
+            });
+        }
+
+        $image = collect($data['sizes']['size'])->where('label', 'Large 1600')->first();
+        return view('front.post.recent-photo', compact('image', 'recents'));
     }
 }

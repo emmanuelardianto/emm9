@@ -82,4 +82,16 @@ class PostController extends Controller
 
         return view('front.post.index', compact('posts', 'search'));
     }
+
+    public function showImageDetail(Post $post, $flickr) {
+        if(!Auth::check() && $post->status != 1 && !$flickr)
+            return abort('404');
+        
+        $data = collect(\Flickr::request('flickr.photos.getSizes', ['user_id' => env('FLICKR_USERID'), 'photo_id' => $flickr]))->first();
+        if(!isset($data['sizes'])) {
+            return abort('404');
+        }
+        $image = collect($data['sizes']['size'])->where('label', 'Large 1600')->first();
+        return view('front.post.detail-photo', compact('post', 'image'));
+    }
 }

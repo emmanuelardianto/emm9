@@ -12,12 +12,10 @@
             @if(Auth::check()) <a href="{{ route('admin.post.edit', $post) }}">Edit</a> @endif
             <h5 class="mt-3 mb-1">Share this post</h5>
             <div class="addthis_inline_share_toolbox mb-3 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
-            <div class="body-post">{!! $post->content !!}</div>
-            <div class="grid">
-                <div class="grid-sizer"></div>
-                <div class="gutter-sizer"></div>
-                @foreach(collect($post->flickr)->reverse() as $photo)
-                <div class="grid-item">
+            <div class="text-center mb-3"><img src="{{ $image['source'] }}" style="max-width: 100%;" alt="{{ $post->title }}" title="{{ $post->title }}" /></div>
+            <div class="row g-1">
+                @foreach(collect($post->flickr_thumbnails)->reverse() as $photo)
+                <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4 col-6">
                     <a href="{{ route('front.post.detail.photo', [ 'post' => $post, 'flickr' => $photo['id'] ]) }}">
                         <img src="{{ $photo['src'] }}" alt="{{ $post->title }}" width="100%">
                     </a>
@@ -26,18 +24,6 @@
             </div>
             <h5 class="mt-3 mb-1">Share this post</h5>
             <div class="addthis_inline_share_toolbox mb-3 data-url="{{ route('front.post.detail', $post) }}" data-title="{{ $post->title }}" data-description="{{ $post->overview }}"></div>
-        </div>
-        <div class="col-12 col-md-6">
-            @if(!is_null($post->previousPost()))
-            <span>Previous</span>
-            <h2 class="post-sub"><a href="{{ route('front.post.detail', $post->previousPost()) }}" class="text-dark">{{ $post->previousPost()->title }}</a></h2>
-            @endif
-        </div>
-        <div class="col-12 col-md-6 text-left text-md-right">
-            @if(!is_null($post->nextPost()))
-            <span>Next</span>
-            <h2 class="post-sub"><a href="{{ route('front.post.detail', $post->nextPost()) }}" class="text-dark">{{ $post->nextPost()->title }}</a></h2>
-            @endif
         </div>
     </div>
 </div>

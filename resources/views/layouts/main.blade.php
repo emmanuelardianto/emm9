@@ -23,11 +23,11 @@
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('css/main.min.css?d=2207161537') }}" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('css/main.css?d=2207161142') }}" crossorigin="anonymous">
 
 	</head>
 	<body>
-		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top">
+		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top d-lg-none d-md-block d-block">
 			<div class="container-fluid">
 				<a class="navbar-brand font-weight-bolder" href="/">emmards</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,29 @@
 			</div>
 		</nav>
 		<div class="content-wrapper">
-			@yield('content')
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-2 col-lg-3 d-lg-block d-md-none">
+						<div class="left-bar">
+							<a class="brand" href="/">emmards</a>
+							<ul class="list-unstyled menu-list mb-4">
+								<li><a href="/about">About</a></li>
+								<li><a href="/tag/casual">Casual Photograph</a></li>
+								<li><a href="/tag/kicks">Kicks</a></li>
+							</ul>
+							<h5>Socials</h5>
+							<ul class="list-unstyled menu-list">
+								@foreach(config('constants.social') as $social)
+								<li><a href="{{ $social['link'] }}">{{ $social['title'] }}</a></li>
+								@endforeach
+							</ul>
+						</div>
+					</div>
+					<div class="col-xl-10 col-lg-9">
+						@yield('content')
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- footer -->
 		<footer>
@@ -175,11 +197,11 @@
 				itemSelector: '.grid-item',
 				percentPosition: true,
 				columnWidth: '.grid-sizer',
+				gutter: '.gutter-sizer'
 			});
 			// layout Masonry after each image loads
 			$grid.imagesLoaded().progress( function() {
 				$grid.masonry();
-				getImageDimension();
 			});  
 		</script>
 		@yield('script')

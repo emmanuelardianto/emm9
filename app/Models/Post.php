@@ -18,13 +18,14 @@ class Post extends Model
         'overview',
         'thumbnail',
         'content',
-        'tag',
+        'tags',
         'status',
         'images'
     ];
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
+        'tags' => 'array'
     ];
 
     public function getRouteKeyName() {
@@ -90,10 +91,46 @@ class Post extends Model
     }
     
     public function getFirstPhotoAttribute() {
-        return collect($this->images)->last();
+        if(count($this->images) == 0)
+            return '';
+        $data = collect(\Flickr::request('flickr.photos.getSizes', ['user_id' => env('FLICKR_USERID'), 'photo_id' => collect($this->images)->last()]))->first();
+
+        if(!isset($data['sizes']))
+            return '';
+        
+        $image = collect($data['sizes']['size'])->where('label', 'Large 1600')->first();
+        return $image;
     }
 
     public function getTitleAttribute($value) {
         return $value.(Auth::check() && !$this->status ? ' - unpublish' : '');
+    }
+
+    public function getJoinedTagAttribute() {
+        return implode(',', $this->tags);
+    }
+
+    public function getFlickerSearch($size = 'b') {
+        if(!$this->joined_tag) {
+            return [];
+        }
+        $data = collect(\Flickr::request('flickr.photos.search', ['user_id' => env('FLICKR_USERID'), 'tags' => $this->joined_tag ]))->first();
+        if(isset($data['photos'])){
+            return collect($data['photos']['photo'])->map(function($obj) use($size) {
+                return array(
+                    'id' => $obj['id'],
+                    'src' => 'https://live.staticflickr.com/'.$obj['server'].'/'.$obj['id'].'_'.$obj['secret'].'_'.$size.'.jpg'
+                );
+            });
+        }
+        return [];
+    }
+
+    public function getFlickrAttribute() {
+        return $this->getFlickerSearch();
+    }
+
+    public function getFlickrThumbnailsAttribute() {
+        return $this->getFlickerSearch('q');
     }
 }

@@ -18,6 +18,7 @@ Route::group([
     'middleware' => ['web']
 ], function ($route) {
     $route->name('home')->get('/', 'HomeController@index');
+    $route->name('home.recent.photo')->get('/recent/photo/{flickr}', 'HomeController@showImageDetail');
     $route->name('about')->get('/about-me', function() {
         return view('front.about-me');
     });
@@ -31,6 +32,7 @@ Route::group([
     $route->name('post')->get('/post', 'PostController@index');
     $route->name('post.archive-page')->get('/archive', 'PostController@archivePage');
     $route->name('post.detail')->get('/post/{post}', 'PostController@show');
+    $route->name('post.detail.photo')->get('/post/{post}/photo/{flickr}', 'PostController@showImageDetail');
     $route->name('post.archive')->get('/archive/{year}/{month}', 'PostController@archive');
     $route->name('post.category')->get('/category/{category}', 'PostController@category');
     $route->name('post.search')->get('/search', 'PostController@search');
